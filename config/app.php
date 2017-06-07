@@ -177,6 +177,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+	    /*
+	     * OAuth Service Providers
+	     */
+	    Laravel\Passport\PassportServiceProvider::class,
+
+	    /*
+	     * CORS
+	     */
+	    Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*
