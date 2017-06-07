@@ -21,6 +21,8 @@ class UsersTableSeeder extends Seeder
 			    'username' => $username,
 			    'email' => $username.'@goodwebsite.net',
 			    'password' => bcrypt($username),
+			    'created_at' => \Carbon\Carbon::now(),
+			    'updated_at' => \Carbon\Carbon::now(),
 		    ]);
 	    }
     }

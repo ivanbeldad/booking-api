@@ -13,6 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+	/*
+     * Securized routes
+     */
+	$api->group(['middleware' => 'auth:api'], function ($api) {
+		$api->get('user', 'App\Http\Controllers\UserController@show');
+		$api->get('users/{id}', 'App\Http\Controllers\UserController@show');
+	});
+
+	/*
+	 * Public routes
+	 */
+	$api->group([], function ($api) {
+		$api->post('users', 'App\Http\Controllers\UserController@store');
+		$api->get('users', 'App\Http\Controllers\UserController@index');        // TEMP
+	});
 });
