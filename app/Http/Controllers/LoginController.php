@@ -38,6 +38,12 @@ class LoginController extends Controller
 		    throw new AuthenticationException();
 	    }
 
+	    if (Auth::user()->is_admin) {
+		    $scope = 'admin';
+	    } else {
+	    	$scope = 'basic';
+	    }
+
 	    $request->header('Content-Type', 'application/json');
 
 	    $request->request->add([
@@ -46,7 +52,7 @@ class LoginController extends Controller
 		    'password' => $password,
 		    'client_id' => '2',
 		    'client_secret' => 'rWWwgwlpGgjlYeIsYu8qIXi4bodp7jMOp1aVi3ja',
-		    'scope' => '*',
+		    'scope' => $scope,
 	    ]);
 
 	    $proxy = Request::create(

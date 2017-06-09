@@ -20,8 +20,22 @@ $api->version('v1', function ($api) {
      * Securized routes
      */
 	$api->group(['middleware' => 'auth:api'], function ($api) {
-		$api->get('/user', 'App\Http\Controllers\UserController@show');
-		$api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
+		/*
+		 * Admin user routes
+		 */
+		$api->group(['middleware' => 'scopes:admin'], function ($api) {
+			$api->post('/users', 'App\Http\Controllers\UserController@store');
+			$api->get('/users', 'App\Http\Controllers\UserController@index');
+		});
+
+		/*
+		 * Basic user routes
+		 */
+		$api->group(['middleware' => 'scope:basic,admin'], function ($api) {
+			$api->get('/user', 'App\Http\Controllers\UserController@show');
+			$api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
+		});
+
 	});
 
 	/*
@@ -29,7 +43,5 @@ $api->version('v1', function ($api) {
 	 */
 	$api->group([], function ($api) {
 		$api->post('/login', 'App\Http\Controllers\LoginController@index');
-		$api->post('/users', 'App\Http\Controllers\UserController@store');
-		$api->get('/users', 'App\Http\Controllers\UserController@index');        // TEMP
 	});
 });
