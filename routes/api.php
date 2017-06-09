@@ -20,15 +20,16 @@ $api->version('v1', function ($api) {
      * Securized routes
      */
 	$api->group(['middleware' => 'auth:api'], function ($api) {
-		$api->get('user', 'App\Http\Controllers\UserController@show');
-		$api->get('users/{id}', 'App\Http\Controllers\UserController@show');
+		$api->get('/user', 'App\Http\Controllers\UserController@show');
+		$api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
 	});
 
 	/*
 	 * Public routes
 	 */
 	$api->group([], function ($api) {
-		$api->post('users', 'App\Http\Controllers\UserController@store');
-		$api->get('users', 'App\Http\Controllers\UserController@index');        // TEMP
+		$api->post('/login', 'App\Http\Controllers\LoginController@index');
+		$api->post('/users', 'App\Http\Controllers\UserController@store');
+		$api->get('/users', 'App\Http\Controllers\UserController@index');        // TEMP
 	});
 });

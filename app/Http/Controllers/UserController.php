@@ -42,8 +42,12 @@ class UserController extends Controller
 		$user = new User([
 			'username' => $request->input('username'),
 			'email' => $request->input('email'),
-			'password' => $request->input('password'),
+			'password' => bcrypt($request->input('password')),
 		]);
+
+	    $user->save();
+
+	    $user = User::where('username', '=', $request->input('username'))->firstOrFail();
 
 	    return $user;
     }
