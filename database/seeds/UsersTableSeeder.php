@@ -17,6 +17,9 @@ class UsersTableSeeder extends Seeder
 		    'adrian',
 	    ];
 	    foreach ($usernames as $username) {
+	    	if (\App\User::where('username', '=', $username)->first()) {
+	    		continue;
+		    }
 		    DB::table('users')->insert([
 			    'username' => $username,
 			    'email' => $username.'@goodwebsite.net',
