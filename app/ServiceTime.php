@@ -20,4 +20,9 @@ class ServiceTime extends Model
 	{
 		return $this->belongsTo('App\Service', 'service_id', 'id');
 	}
+
+	public function bookings()
+	{
+		return $this->hasMany('App\Booking', 'service_time_id', 'id');
+	}
 }

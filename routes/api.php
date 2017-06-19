@@ -40,6 +40,14 @@ $api->version('v1', function ($api) {
 		$api->group(['middleware' => 'scope:basic,admin'], function ($api) {
 			$api->get('/user', 'App\Http\Controllers\UserController@show');
 			$api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
+
+			/*
+			 * BOOKINGS
+			 */
+			$api->get('/services/{service_id}/services_times/{service_time_id}/bookings', 'App\Http\Controllers\BookingController@index');
+			$api->get('/services/{service_id}/services_times/{service_time_id}/bookings/{id}', 'App\Http\Controllers\BookingController@show');
+			$api->post('/services/{service_id}/services_times/{service_time_id}/bookings', 'App\Http\Controllers\BookingController@store');
+			$api->delete('/services/{service_id}/services_times/{service_time_id}/bookings/{id}', 'App\Http\Controllers\BookingController@destroy');
 		});
 	});
 
