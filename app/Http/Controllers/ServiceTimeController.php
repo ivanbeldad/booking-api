@@ -68,15 +68,15 @@ class ServiceTimeController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param $service_time
+	 * @param $service_id
 	 * @param  int $id
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-    public function show($service_time, $id)
+    public function show($service_id, $id)
     {
-    	$service = Service::find($service_time);
-    	$serviceTime = $service->services_times()->find($id);
+    	$service = Service::findOrFail($service_id);
+    	$serviceTime = $service->services_times()->findOrFail($id);
 
 	    return $serviceTime ? $serviceTime : $this->response->noContent();
     }
@@ -103,7 +103,7 @@ class ServiceTimeController extends Controller
 	 */
     public function destroy($service_id, $id)
     {
-	    Service::find($service_id)->services_times()->delete($id);
+	    Service::findOrFail($service_id)->services_times()->delete($id);
 
 	    return $this->response->noContent();
     }
